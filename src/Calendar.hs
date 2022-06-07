@@ -15,18 +15,21 @@ module Calendar
   , Intervals
   ) where
 
+import           GHC.Base                       ( UnliftedType )
+import           RIO                            ( Utf8Builder )
 import           RIO.Seq                        ( Seq(Empty) )
 import qualified RIO.Text                      as TXT
 import qualified RIO.Time                      as T
 import           RIO.Time                       ( UTCTime )
-import GHC.Base (UnliftedType)
-import RIO (Utf8Builder)
 
 data Calendar = Calendar
   { events     :: [TimedEvent]
   , timeFormat :: TimeFormat
   , name       :: TXT.Text
   }
+
+today :: IO ()
+today = undefined
 
 data TimeFormat  = AM
                  | PM

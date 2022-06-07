@@ -16,32 +16,33 @@ import           RIO                            ( ($)
                                                 , (||)
                                                 )
 import           RIO
+import           RIO.NonEmpty                   ( head )
 import qualified RIO.Text                      as T
 import           RIO.Time
 import           Test.QuickCheck                ( Testable
                                                 , quickCheck
                                                 )
+import           Test.QuickCheck.Instances.Text
+import           Util
 main :: IO ()
-main = calendarTests
+main = calendarTests >> kbTests
 
-tprint :: T.Text -> IO ()
-tprint t = putStrLn $ T.unpack t
 
 {-
    commented quickcheck
 -}
 cqc :: Testable prop => T.Text -> prop -> IO ()
 cqc t p = do
-  tprint t
+  tPrintLn t
   quickCheck p
-  tprint "-"
+  tPrintLn "-"
 
 withTitle :: T.Text -> IO ()
 withTitle t = do
-  tprint ""
-  tprint "===================================="
-  tprint $ T.concat ["Initiating testsuite:", " ", t]
-  tprint "===================================="
+  tPrintLn ""
+  tPrintLn "===================================="
+  tPrintLn $ T.concat ["Initiating testsuite for:", " ", t]
+  tPrintLn "===================================="
 
 {-
         calendarstuff
@@ -83,12 +84,30 @@ prop_intervals_disj :: [Int] -> Int -> Bool
 prop_intervals_disj is _ | isEven is = undefined
 
 -}
-
+{-
 prop_monoid_intervalSet_disj :: UTCTime -> UTCTime -> Int -> Bool
 prop_monoid_intervalSet_disj p1 p2 int | int > 0 || int < 0 =
   let evenAmtOf =
         (take (2 * (abs int)) $ repeat (p1 ... p2)) :: [Interval UTCTime]
   in  1 == (length (fold evenAmtOf))
 prop_monoid_intervalSet_disj _ _ _ = True
+-}
 
+{- =============== 
+   KeybindingStuff
+  =============== -}
 
+kbTests :: IO ()
+kbTests =
+  withTitle "Keybinding"
+    >> cqc
+         (T.concat
+           [ "when existing binding pressed"
+           , " then show corresponding action"
+           , " Otherwise nothing"
+           ]
+         )
+         prop_actionOf_displays_actionOfKeybinding
+
+prop_actionOf_displays_actionOfKeybinding :: T.Text -> Bool
+prop_actionOf_displays_actionOfKeybinding txt = undefined
