@@ -1,0 +1,9 @@
+{
+    "editor.guides.highlightActiveIndentation": true,
+    "editor.guides.indentation": false,
+    "workbench.tree.renderIndentGuides": "none",
+    "workbench.tree.indent": 4,
+    "editor.autoIndent": "keep",
+    "editor.glyphMargin": false,
+    "editor.hover.above": false
+}

@@ -13,7 +13,18 @@ import           Util
 data Action = CalendarOn
 
 
-newtype Keybindings = Keybindings [(T.Text, Maybe Action)]
+newtype Keybindings
+    = Keybindings
+    [
+    (T.Text
+    , Maybe Action
+    )
+    ]
 
 
 actionOf = undefined
+
+{-
+    laskldjaksldjalksjd
+-}
+

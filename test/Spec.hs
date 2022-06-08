@@ -1,6 +1,8 @@
 {-#LANGUAGE OverloadedStrings #-}
 {-#LANGUAGE NoImplicitPrelude #-}
 import           Calendar
+import           Interval
+import           MyArbitraries
 import           Prelude                        ( putStrLn
                                                 , repeat
                                                 )
@@ -23,9 +25,11 @@ import           Test.QuickCheck                ( Testable
                                                 , quickCheck
                                                 )
 import           Test.QuickCheck.Instances.Text
+import           Test.QuickCheck.Instances.Time
+
 import           Util
 main :: IO ()
-main = calendarTests >> kbTests
+main = intervalTests >> kbTests >> calTests
 
 
 {-
@@ -45,11 +49,11 @@ withTitle t = do
   tPrintLn "===================================="
 
 {-
-        calendarstuff
+        Interval
 -}
-calendarTests :: IO ()
-calendarTests =
-  withTitle "Calendar"
+intervalTests :: IO ()
+intervalTests =
+  withTitle "Interval"
     >> cqc "1. minI <= maxI" prop_minLOEQ
     >> cqc
          ( T.concat
@@ -82,8 +86,9 @@ prop_minLOEQ i1 i2 = let i = i1 ... i2 in minI i <= maxI i
 {-
 prop_intervals_disj :: [Int] -> Int -> Bool
 prop_intervals_disj is _ | isEven is = undefined
-
 -}
+
+
 {-
 prop_monoid_intervalSet_disj :: UTCTime -> UTCTime -> Int -> Bool
 prop_monoid_intervalSet_disj p1 p2 int | int > 0 || int < 0 =
@@ -110,4 +115,16 @@ kbTests =
          prop_actionOf_displays_actionOfKeybinding
 
 prop_actionOf_displays_actionOfKeybinding :: T.Text -> Bool
-prop_actionOf_displays_actionOfKeybinding txt = undefined
+prop_actionOf_displays_actionOfKeybinding txt = True
+
+{- =========
+   Calendar
+===== -}
+
+
+calTests :: IO ()
+calTests =
+  withTitle "Calendar" >> cqc "1. get put plan" prop_acces_put_with_get
+
+prop_acces_put_with_get :: Calendar -> Plan -> Bool
+prop_acces_put_with_get cal plan = plan `elem` (atTime plan) .@< (cal .@> plan)

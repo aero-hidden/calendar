@@ -26,8 +26,10 @@ source-repository head
 library
   exposed-modules:
       Calendar
+      Interval
       KeyBindings
       Lib
+      MyArbitraries
       Util
   other-modules:
       Paths_calendar
