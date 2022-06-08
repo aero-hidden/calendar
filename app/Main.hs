@@ -37,8 +37,6 @@ main = let kb = Keybindings $ "dud" in welcome >> app kb
     app kb
 
 
-
-
 printAvailableActions :: Keybindings -> IO T.Text
 printAvailableActions _ = do
   tPrintLn "press 1 to se information about today"

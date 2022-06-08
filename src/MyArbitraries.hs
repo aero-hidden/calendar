@@ -1,5 +1,6 @@
 {-#LANGUAGE OverloadedStrings #-}
 {-#LANGUAGE NoImplicitPrelude #-}
+{-#LANGUAGE GeneralizedNewtypeDeriving #-}
 
 module MyArbitraries where
 
@@ -11,7 +12,7 @@ import           RIO.Time                       ( Day
                                                   ( ModifiedJulianDay
                                                   , toModifiedJulianDay
                                                   )
-                                                , toGregorian, TimeOfDay
+                                                , toGregorian, TimeOfDay, UTCTime (UTCTime), ParseTime
                                                 )
 import           Test.QuickCheck
 import           Test.QuickCheck.Instances.Text
@@ -24,26 +25,13 @@ rPlan :: Gen Plan
 rPlan = do
   letters    <- choose (0, 32)
   (activity) <- (vector letters :: Gen [T.Text])
-  ts         <- arbitrary :: Gen Timestamp
+  ts         <- arbitrary :: Gen UTCTime 
   return $ Plan ("ads", ts)
 
 instance Arbitrary Plan where
   arbitrary = do
     rPlan
 
-rTimestamp :: Gen Timestamp
-rTimestamp = do
-  rd <- choose (1600, 3000)
-  tof <- (arbitrary :: Gen TimeOfDay)
-  let 
-
-
-  
-  return . (Timestamp  tof). toGregorian $ ModifiedJulianDay rd
-
-instance Arbitrary Timestamp where
-  arbitrary = do
-    rTimestamp
 
 rCalendar :: Gen Calendar
 rCalendar = do

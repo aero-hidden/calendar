@@ -1,6 +1,5 @@
 module Calendar
   ( Calendar(..)
-  , Timestamp(..)
   , Plan(..)
   , (.@<)
   , (.@>)
@@ -20,24 +19,22 @@ import           RIO.Time                       ( DayOfMonth
 import Interval
 
 {-
-data TimeSign = TS TimeGran Timestamp Timestamp
 
 -}
 
 data TimeGran = DAY | WEEK | MONTH | YEAR
 
-span :: Interval Timestamp -> TimeGran
+span :: Interval UTCTime -> TimeGran
 span = undefined
 
-newtype Plan = Plan (T.Text, Timestamp) deriving (Eq, Show)
+newtype Plan = Plan (T.Text, UTCTime) deriving (Eq, Show)
 
 activity :: Plan -> T.Text
 activity (Plan (a, _)) = a
 
-atTime :: Plan -> Timestamp
+atTime :: Plan -> UTCTime
 atTime (Plan (_, t)) = t
 
-newtype Timestamp = Timestamp (Year, MonthOfYear,DayOfMonth, TimeOfDay) deriving (Eq, Show)
 
 newtype Calendar = Calendar [Plan] deriving (Eq, Show)
 
@@ -49,7 +46,7 @@ newtype WeeklyCal  = WeeklyCal  [Plan]
 
 
 -- | get plan
-(.@<) :: Timestamp -> Calendar -> [Plan]
+(.@<) :: UTCTime -> Calendar -> [Plan]
 time .@< (Calendar p) = filter (\plan -> atTime plan == time) p
 
 -- | put plan
