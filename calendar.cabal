@@ -30,6 +30,7 @@ library
       KeyBindings
       Lib
       MyArbitraries
+      Pretty
       Util
   other-modules:
       Paths_calendar

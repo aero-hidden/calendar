@@ -15,8 +15,20 @@ import qualified RIO.Text                      as T
 import           RIO.Time                       ( DayOfMonth
                                                 , MonthOfYear
                                                 , UTCTime
-                                                , Year
+                                                , Year, TimeOfDay 
                                                 )
+import Interval
+
+{-
+data TimeSign = TS TimeGran Timestamp Timestamp
+
+-}
+
+data TimeGran = DAY | WEEK | MONTH | YEAR
+
+span :: Interval Timestamp -> TimeGran
+span = undefined
+
 newtype Plan = Plan (T.Text, Timestamp) deriving (Eq, Show)
 
 activity :: Plan -> T.Text
@@ -25,9 +37,15 @@ activity (Plan (a, _)) = a
 atTime :: Plan -> Timestamp
 atTime (Plan (_, t)) = t
 
-newtype Timestamp = Timestamp (Year, MonthOfYear,DayOfMonth) deriving (Eq, Show)
+newtype Timestamp = Timestamp (Year, MonthOfYear,DayOfMonth, TimeOfDay) deriving (Eq, Show)
 
 newtype Calendar = Calendar [Plan] deriving (Eq, Show)
+
+
+newtype DailyCal   = DailyCal   [Plan]
+newtype MonthlyCal = MonthlyCal [Plan]
+newtype WeeklyCal  = WeeklyCal  [Plan]
+
 
 
 -- | get plan

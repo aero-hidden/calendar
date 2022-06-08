@@ -11,7 +11,7 @@ import           RIO.Time                       ( Day
                                                   ( ModifiedJulianDay
                                                   , toModifiedJulianDay
                                                   )
-                                                , toGregorian
+                                                , toGregorian, TimeOfDay
                                                 )
 import           Test.QuickCheck
 import           Test.QuickCheck.Instances.Text
@@ -33,8 +33,13 @@ instance Arbitrary Plan where
 
 rTimestamp :: Gen Timestamp
 rTimestamp = do
-  r <- choose (1600, 3000)
-  return . Timestamp . toGregorian $ ModifiedJulianDay r
+  rd <- choose (1600, 3000)
+  tof <- (arbitrary :: Gen TimeOfDay)
+  let 
+
+
+  
+  return . (Timestamp  tof). toGregorian $ ModifiedJulianDay rd
 
 instance Arbitrary Timestamp where
   arbitrary = do
