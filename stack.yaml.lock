@@ -697,4 +697,11 @@ packages:
       sha256: da4d0e272b106167b2e2025758d566e0768c8c22a8ffcc365efcffba7ea8c758
   original:
     hackage: quickcheck-instances-0.3.27@sha256:df1a5d65519fea31d2eaa38da3b6aa5d1c7edb2d2420808b3030f10c217c27ac,4710
+- completed:
+    hackage: type-operators-0.2.0.0@sha256:8b7f815ee0ba9c8e4a5703fffc9db8a9eba8afba20cc75c16e6d878e97b77b83,867
+    pantry-tree:
+      size: 222
+      sha256: 3a1e8bf894c01b6b762565929180bc62c7057036e5c741eb2cdff2a1d8071a69
+  original:
+    hackage: type-operators-0.2.0.0@sha256:8b7f815ee0ba9c8e4a5703fffc9db8a9eba8afba20cc75c16e6d878e97b77b83,867
 snapshots: []

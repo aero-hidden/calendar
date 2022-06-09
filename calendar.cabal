@@ -43,6 +43,7 @@ library
     , rio
     , scotty
     , transformers
+    , type-operators
   default-language: Haskell2010
 
 executable calendar-exe
@@ -60,6 +61,7 @@ executable calendar-exe
     , rio
     , scotty
     , transformers
+    , type-operators
   default-language: Haskell2010
 
 test-suite calendar-test
@@ -78,4 +80,5 @@ test-suite calendar-test
     , rio
     , scotty
     , transformers
+    , type-operators
   default-language: Haskell2010
